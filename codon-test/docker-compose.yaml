@@ -1,0 +1,11 @@
+version: '3.8'
+services:
+    codon:
+        build: 
+            context: ./airflow
+        container_name: codon-airflow
+        volumes:
+            - ./airflow/dags:/opt/airflow/dags:ro
+            - ./airflow/setup.py:/opt/airflow/setup.py:ro
+        ports:
+            - 8080:8080
