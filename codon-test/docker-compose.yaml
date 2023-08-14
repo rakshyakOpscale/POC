@@ -1,11 +1,24 @@
 version: '3.8'
 services:
-    codon:
+    airflow-webserver:
         build: 
             context: ./airflow
-        container_name: codon-airflow
+            dockerfile: webserver.Dockerfile
+        container_name: airflow-webserver
         volumes:
             - ./airflow/dags:/opt/airflow/dags:ro
             - ./airflow/setup.py:/opt/airflow/setup.py:ro
         ports:
             - 8080:8080
+        command: webserver
+    airflow-scheduler:
+        build:
+            context: ./airflow
+            dockerfile: scheduler.Dockerfile
+        container_name: airflow-scheduler
+        depends_on:
+            - airflow-webserver
+        volumes:
+            - ./airflow/dags:/opt/airflow/dags:ro
+            - ./airflow/setup.py:/opt/airflow/setup.py:ro
+        command: scheduler

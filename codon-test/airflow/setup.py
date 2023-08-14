@@ -100,7 +100,7 @@ setup(
     version="0.1",
     packages=["test"],
     ext_modules=[
-        CodonExtension("dags", "dags.test"),
+        CodonExtension("dags", "dags/test.py"),
     ],
     cmdclass={"build_ext": BuildCodonExt},
 )
